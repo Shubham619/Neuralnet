@@ -1,5 +1,5 @@
 #!/usr/bin/env python3
-“””
+"""
 DRAM-SNIFFER v3.0 - DDR Noise, Irregularities and Failure Finder
 with External metrics using Reinforcement learning
 
@@ -19,9 +19,9 @@ Key Features:
 - Dual-path error discovery (CE escalation + sudden UE)
 - PPO training with robust hyperparameters from SSD SNIFFER
 - Comprehensive evaluation and TC library generation
-  “””
+  """
 
-from **future** import annotations
+from __future__ import annotations
 
 import argparse
 import hashlib
@@ -66,7 +66,7 @@ from gymnasium import spaces
 
 try:
 import matplotlib
-matplotlib.use(“Agg”)
+matplotlib.use("Agg")
 import matplotlib.pyplot as plt
 MATPLOTLIB_AVAILABLE = True
 except ImportError:
@@ -93,13 +93,13 @@ Monitor = None
 
 logging.basicConfig(
 level=logging.INFO,
-format=”%(asctime)s | %(levelname)-8s | %(name)s | %(message)s”,
-datefmt=”%Y-%m-%d %H:%M:%S”,
+format="%(asctime)s | %(levelname)-8s | %(name)s | %(message)s",
+datefmt="%Y-%m-%d %H:%M:%S",
 )
-logger = logging.getLogger(“DRAM-SNIFFER”)
+logger = logging.getLogger("DRAM-SNIFFER")
 
 class NumpyJSONEncoder(json.JSONEncoder):
-“”“JSON encoder that handles numpy types.”””
+"""JSON encoder that handles numpy types."""
 
 ```
 def default(self, obj):
@@ -121,27 +121,27 @@ def default(self, obj):
 # =============================================================================
 
 class ErrorType(Enum):
-“”“Types of DRAM errors.”””
+"""Types of DRAM errors."""
 NONE = auto()
 CE = auto()      # Correctable Error
 UE = auto()      # Uncorrectable Error
 CE_UE = auto()   # Both CE and UE in same step
 
 class BackendType(Enum):
-“”“Execution backend types.”””
-SYNTHETIC_FAST = “synthetic_fast”       # Pure simulation, no delays
-SYNTHETIC_TIMED = “synthetic_timed”     # Simulation with timing
-GSAT_WRAPPER = “gsat_wrapper”           # Real stressapptest execution
+"""Execution backend types."""
+SYNTHETIC_FAST = "synthetic_fast"       # Pure simulation, no delays
+SYNTHETIC_TIMED = "synthetic_timed"     # Simulation with timing
+GSAT_WRAPPER = "gsat_wrapper"           # Real stressapptest execution
 
 class ActionGranularity(Enum):
-“”“Action space granularity levels.”””
-COARSE = “coarse”   # ~672 actions (pattern × region × concurrency × access × duration)
-MEDIUM = “medium”   # ~2016 actions (adds block_size)
-FULL = “full”       # ~6048 actions (full Cartesian)
+"""Action space granularity levels."""
+COARSE = "coarse"   # ~672 actions (pattern × region × concurrency × access × duration)
+MEDIUM = "medium"   # ~2016 actions (adds block_size)
+FULL = "full"       # ~6048 actions (full Cartesian)
 
 @dataclass
 class DRAMSnifferConfig:
-“”“Complete configuration for DRAM-SNIFFER framework.”””
+"""Complete configuration for DRAM-SNIFFER framework."""
 
 ```
 # =========================================================================
@@ -308,31 +308,31 @@ def load(cls, path: Union[str, Path]) -> "DRAMSnifferConfig":
 # Stress factor lookup tables (calibrated for error probability scaling)
 
 PATTERN_STRESS = {
-“walking_1_0”: 1.10,
-“checkerboard”: 1.20,
-“random”: 1.00,
-“march”: 1.15,
-“butterfly”: 1.30,  # Highest stress - targets cell coupling
-“solid”: 1.05,
-“inversion”: 1.18,
+"walking_1_0": 1.10,
+"checkerboard": 1.20,
+"random": 1.00,
+"march": 1.15,
+"butterfly": 1.30,  # Highest stress - targets cell coupling
+"solid": 1.05,
+"inversion": 1.18,
 }
 
 CONCURRENCY_STRESS = {
-“low”: 1.0,
-“medium”: 1.4,
-“high”: 1.9,
+"low": 1.0,
+"medium": 1.4,
+"high": 1.9,
 }
 
 ACCESS_STRESS = {
-“sequential”: 1.0,
-“random”: 1.2,
-“rowhammer_like”: 1.6,  # Highest stress - targets row activation
+"sequential": 1.0,
+"random": 1.2,
+"rowhammer_like": 1.6,  # Highest stress - targets row activation
 }
 
 BLOCK_STRESS = {
-“cacheline_64B”: 1.25,
-“page_4KB”: 1.0,
-“large_2MB”: 0.9,
+"cacheline_64B": 1.25,
+"page_4KB": 1.0,
+"large_2MB": 0.9,
 }
 
 DURATION_STRESS = {
@@ -370,7 +370,7 @@ MAX_ERRORS_STRESS = {
 
 @dataclass(frozen=True)
 class ActionSpec:
-“”“Immutable specification for a single GSAT action.”””
+"""Immutable specification for a single GSAT action."""
 action_id: int
 pattern: str
 region: int
@@ -430,7 +430,7 @@ def to_dict(self) -> Dict[str, Any]:
 ```
 
 class ActionLibrary:
-“””
+"""
 Manages the action space for DRAM-SNIFFER.
 
 ```
@@ -618,7 +618,7 @@ def save(self, path: Union[str, Path]) -> None:
 
 @dataclass
 class TelemetrySnapshot:
-“”“Point-in-time telemetry snapshot from EDAC/BMC.”””
+"""Point-in-time telemetry snapshot from EDAC/BMC."""
 timestamp: float
 ce_count: int
 ue_count: int
@@ -647,7 +647,7 @@ def delta(self, other: "TelemetrySnapshot") -> "TelemetryDelta":
 
 @dataclass
 class TelemetryDelta:
-“”“Change in telemetry between two snapshots.”””
+"""Change in telemetry between two snapshots."""
 delta_ce: int
 delta_ue: int
 delta_ce_per_region: np.ndarray
@@ -677,7 +677,7 @@ def error_type(self) -> ErrorType:
 ```
 
 class EDACReader:
-“””
+"""
 Reads error counts from Linux EDAC subsystem.
 
 ```
@@ -753,7 +753,7 @@ def read_counts(self) -> Tuple[int, int, np.ndarray, np.ndarray]:
 ```
 
 class ThermalMonitor:
-“”“Monitors DIMM temperature from hwmon or IPMI.”””
+"""Monitors DIMM temperature from hwmon or IPMI."""
 
 ```
 HWMON_ROOT = Path("/sys/class/hwmon")
@@ -793,7 +793,7 @@ def read_temperature(self) -> float:
 ```
 
 class TelemetryCollector:
-“”“Unified telemetry collection from EDAC, thermal, and BMC sources.”””
+"""Unified telemetry collection from EDAC, thermal, and BMC sources."""
 
 ```
 def __init__(self, cfg: DRAMSnifferConfig):
@@ -845,7 +845,7 @@ def get_delta(self) -> Optional[TelemetryDelta]:
 # =============================================================================
 
 class ExecutionBackend(ABC):
-“”“Abstract base class for action execution backends.”””
+"""Abstract base class for action execution backends."""
 
 ```
 @abstractmethod
@@ -868,7 +868,7 @@ def reset(self) -> None:
 ```
 
 class SyntheticBackend(ExecutionBackend):
-“””
+"""
 Probabilistic simulation backend for Phase 0 development.
 
 ```
@@ -1089,7 +1089,7 @@ def reset(self) -> None:
 ```
 
 class GSATBackend(ExecutionBackend):
-“””
+"""
 Real hardware backend using stressapptest with EDAC monitoring.
 
 ```
@@ -1178,7 +1178,7 @@ def reset(self) -> None:
 ```
 
 def create_backend(cfg: DRAMSnifferConfig) -> ExecutionBackend:
-“”“Factory function to create appropriate backend.”””
+"""Factory function to create appropriate backend."""
 backend_type = BackendType(cfg.backend)
 
 ```
@@ -1199,7 +1199,7 @@ else:
 # =============================================================================
 
 class DRAMSnifferEnv(gym.Env):
-“””
+"""
 Gymnasium environment for DRAM-SNIFFER RL training.
 
 ```
@@ -1508,7 +1508,7 @@ def get_episode_summary(self) -> Dict[str, Any]:
 # =============================================================================
 
 class DRAMSnifferCallback(BaseCallback):
-“”“Custom callback for training monitoring and checkpointing.”””
+"""Custom callback for training monitoring and checkpointing."""
 
 ```
 def __init__(
@@ -1581,7 +1581,7 @@ def get_training_history(self) -> Dict[str, List]:
 
 @dataclass
 class EvaluationResult:
-“”“Results from agent evaluation.”””
+"""Results from agent evaluation."""
 agent_name: str
 episodes_df: pd.DataFrame
 actions_df: pd.DataFrame
@@ -1611,7 +1611,7 @@ seed: int,
 agent_name: str,
 deterministic: bool = True,
 ) -> EvaluationResult:
-“””
+"""
 Evaluate agent performance.
 
 ```
@@ -1762,7 +1762,7 @@ cfg: DRAMSnifferConfig,
 output_dir: Path,
 seed: int = 0,
 ) -> Tuple[PPO, DRAMSnifferCallback]:
-“””
+"""
 Train PPO agent on DRAM-SNIFFER environment.
 
 ```
@@ -1833,9 +1833,9 @@ ppo_result: EvaluationResult,
 random_result: EvaluationResult,
 output_dir: Path,
 ) -> None:
-“”“Generate comparison plots between PPO and random agents.”””
+"""Generate comparison plots between PPO and random agents."""
 if not MATPLOTLIB_AVAILABLE:
-logger.warning(“Matplotlib not available, skipping plots”)
+logger.warning("Matplotlib not available, skipping plots")
 return
 
 ```
@@ -1930,7 +1930,7 @@ def plot_training_history(
 history: Dict[str, List],
 output_dir: Path,
 ) -> None:
-“”“Plot training curves.”””
+"""Plot training curves."""
 if not MATPLOTLIB_AVAILABLE:
 return
 
@@ -1999,7 +1999,7 @@ result: EvaluationResult,
 action_library: ActionLibrary,
 output_dir: Path,
 ) -> pd.DataFrame:
-“””
+"""
 Generate ranked test case library from evaluation results.
 
 ```
@@ -2071,11 +2071,11 @@ return tc_df
 # =============================================================================
 
 def create_parser() -> argparse.ArgumentParser:
-“”“Create argument parser.”””
+"""Create argument parser."""
 parser = argparse.ArgumentParser(
-description=“DRAM-SNIFFER: DDR Error-Inducing TC Generation via RL”,
+description="DRAM-SNIFFER: DDR Error-Inducing TC Generation via RL",
 formatter_class=argparse.RawDescriptionHelpFormatter,
-epilog=”””
+epilog="""
 Examples:
 
 # Phase 0: Quick simulation training
@@ -2097,7 +2097,7 @@ python dram_sniffer_v3.py –mode eval –model-path runs/model_final.zip –epi
 # Generate config template
 
 python dram_sniffer_v3.py –generate-config config.json
-“””,
+""",
 )
 
 ```
@@ -2248,7 +2248,7 @@ return parser
 ```
 
 def main() -> None:
-“”“Main entry point.”””
+"""Main entry point."""
 parser = create_parser()
 args = parser.parse_args()
 
@@ -2437,7 +2437,7 @@ if args.mode in ("eval", "train_eval"):
 logger.info("DRAM-SNIFFER complete")
 ```
 
-if **name** == “**main**”:
+if **name** == "**main**":
 main()
 
 

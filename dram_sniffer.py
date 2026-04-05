@@ -1549,14 +1549,14 @@ class DRAMSnifferCallback(BaseCallback):
             "episode_ues": self.episode_ues.copy(),
         }
 
-    @dataclass
-    class EvaluationResult:
-        """Results from agent evaluation."""
-        agent_name: str
-        episodes_df: pd.DataFrame
-        actions_df: pd.DataFrame
-        summary: Dict[str, float]
-        tc_library: List[Dict[str, Any]]
+@dataclass
+class EvaluationResult:
+    """Results from agent evaluation."""
+    agent_name: str
+    episodes_df: pd.DataFrame
+    actions_df: pd.DataFrame
+    summary: Dict[str, float]
+    tc_library: List[Dict[str, Any]]
 
     def save(self, output_dir: Path) -> None:
         """Save all results to directory."""

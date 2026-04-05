@@ -1,0 +1,13 @@
+action_id,pattern,region,concurrency,access_pattern,block_size,duration_s,stress_score,total_uses,ce_correlation,ue_correlation,effectiveness_score,gsat_command
+34,walking_1_0,0,high,rowhammer_like,page_4KB,120,12.745656,151,1.0,1.0,1.1,stressapptest -s 120 -M 4096 -m 16 -C 8 -W --max_errors 1 -l /tmp/gsat_region_0.log
+1331,butterfly,4,high,rowhammer_like,page_4KB,300,23.431408000000005,88,0.9886363636363636,1.0,1.0965909090909092,stressapptest -s 300 -M 0 -m 16 -C 8 -W --max_errors 1 -l /tmp/gsat_region_4.log
+1403,butterfly,6,high,rowhammer_like,page_4KB,300,23.431408000000005,1172,0.9882352941176471,1.0,1.096470588235294,stressapptest -s 300 -M 0 -m 16 -C 8 -W --max_errors 1 -l /tmp/gsat_region_6.log
+1615,solid,4,high,random,page_4KB,300,12.903659999999999,69,0.9855072463768116,1.0,1.0956521739130436,stressapptest -s 300 -M 0 -m 16 -C 8 -W --max_errors 10 -l /tmp/gsat_region_4.log
+203,walking_1_0,5,medium,rowhammer_like,page_4KB,300,9.445201920000002,134,0.9591836734693877,1.0,1.0877551020408163,stressapptest -s 300 -M 4096 -m 8 -C 4 -W --max_errors 1 -l /tmp/gsat_region_5.log
+104,walking_1_0,2,high,rowhammer_like,page_4KB,30,8.497104,141,0.9494949494949495,1.0,1.084848484848485,stressapptest -s 30 -M 4096 -m 16 -C 8 -W --max_errors 1 -l /tmp/gsat_region_2.log
+1042,march,4,high,rowhammer_like,page_4KB,120,13.325004,143,0.9494949494949495,1.0,1.084848484848485,stressapptest -s 120 -M 4096 -m 16 -C 8 -W --max_errors 1 -l /tmp/gsat_region_4.log
+636,random,1,high,sequential,page_4KB,30,4.16955,69,0.9855072463768116,1.0,1.0790431739130435,stressapptest -s 30 -M 4096 -m 16 -C 8 -W -l /tmp/gsat_region_1.log
+270,walking_1_0,7,medium,random,page_4KB,120,4.8299328,100,0.94,1.0,1.078598656,stressapptest -s 120 -M 4096 -m 8 -C 4 -W --max_errors 10 -l /tmp/gsat_region_7.log
+1581,solid,3,high,rowhammer_like,page_4KB,60,9.733046400000001,66,0.9242424242424242,1.0,1.0772727272727272,stressapptest -s 60 -M 4096 -m 16 -C 8 -W --max_errors 1 -l /tmp/gsat_region_3.log
+1230,butterfly,2,low,random,page_4KB,120,2.574,66,0.9242424242424242,1.0,1.0287527272727273,stressapptest -s 120 -M 1024 -m 4 -W --max_errors 10 -l /tmp/gsat_region_2.log
+836,random,7,low,rowhammer_like,page_4KB,30,1.6456000000000004,100,0.94,1.0,1.014912,stressapptest -s 30 -M 256 -m 4 -W --max_errors 1 -l /tmp/gsat_region_7.log

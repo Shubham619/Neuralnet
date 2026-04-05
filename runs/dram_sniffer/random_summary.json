@@ -1,0 +1,12 @@
+{
+  "mean_reward": 63.17989999999999,
+  "mean_steps_to_first_ce": 11.93,
+  "mean_steps_to_first_ue": 56.0,
+  "mean_sim_seconds_to_first_ce": 1532.4,
+  "mean_sim_seconds_to_first_ue": 7047.6,
+  "mean_total_ce": 6.44,
+  "ue_rate": 0.39,
+  "mean_coverage": 3.46,
+  "mean_entropy": 7.6088706291912604,
+  "mean_unique_actions": 54.5
+}

@@ -1,0 +1,124 @@
+{
+  "patterns": [
+    "walking_1_0",
+    "checkerboard",
+    "random",
+    "march",
+    "butterfly",
+    "solid",
+    "inversion"
+  ],
+  "regions": [
+    0,
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7
+  ],
+  "concurrencies": [
+    "low",
+    "medium",
+    "high"
+  ],
+  "access_patterns": [
+    "sequential",
+    "random",
+    "rowhammer_like"
+  ],
+  "block_sizes": [
+    "cacheline_64B",
+    "page_4KB",
+    "large_2MB"
+  ],
+  "durations_s": [
+    30,
+    60,
+    120,
+    300
+  ],
+  "memory_sizes_mb": [
+    256,
+    1024,
+    4096,
+    0
+  ],
+  "copy_threads": [
+    2,
+    4,
+    8,
+    16
+  ],
+  "cpu_threads": [
+    0,
+    4,
+    8
+  ],
+  "warm_copy_options": [
+    false,
+    true
+  ],
+  "max_errors_options": [
+    1,
+    10,
+    -1
+  ],
+  "max_steps_per_episode": 64,
+  "gamma": 0.99,
+  "alpha_ce": 1.0,
+  "beta_ue": 100.0,
+  "gamma_coverage": 2.0,
+  "exploration_bonus": 0.5,
+  "time_penalty_coef": 0.001,
+  "base_ce_prob": 0.008,
+  "base_ue_prob": 0.0002,
+  "base_ue_sudden_prob": 0.0001,
+  "ce_escalation_factor": 5.0,
+  "ce_ue_correlation_min": 9.0,
+  "ce_ue_correlation_max": 100.0,
+  "weak_region_fraction": 0.25,
+  "weak_region_vulnerability_min": 2.5,
+  "weak_region_vulnerability_max": 5.0,
+  "normal_region_vulnerability_min": 0.8,
+  "normal_region_vulnerability_max": 1.2,
+  "base_temperature_c": 40.0,
+  "temperature_min_c": 35.0,
+  "temperature_max_c": 85.0,
+  "temperature_error_threshold_c": 55.0,
+  "temperature_error_multiplier": 1.15,
+  "learning_rate": 0.0003,
+  "n_steps": 2048,
+  "batch_size": 64,
+  "n_epochs": 10,
+  "gae_lambda": 0.95,
+  "clip_range": 0.2,
+  "ent_coef": 0.01,
+  "vf_coef": 0.5,
+  "max_grad_norm": 0.5,
+  "net_arch": [
+    256,
+    256
+  ],
+  "total_timesteps": 200000,
+  "eval_freq": 10000,
+  "n_eval_episodes": 20,
+  "save_freq": 25000,
+  "backend": "gsat_wrapper",
+  "action_granularity": "coarse",
+  "sleep_scale": 0.0,
+  "fixed_weak_map": false,
+  "gsat_binary": "stressapptest",
+  "use_numactl": false,
+  "gsat_timeout_s": 600,
+  "require_edac": true,
+  "edac_poll_interval_s": 1.0,
+  "eval_episodes": 100,
+  "deterministic_eval": true,
+  "output_dir": "runs/dram_sniffer",
+  "save_tc_library": true,
+  "save_action_history": true,
+  "generate_plots": true,
+  "verbose": 1
+}
